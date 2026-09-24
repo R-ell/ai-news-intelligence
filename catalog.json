@@ -1,0 +1,75 @@
+{
+    "topics": [
+        {
+            "id": 1,
+            "name": "AI"
+        },
+        {
+            "id": 2,
+            "name": "Robotics"
+        },
+        {
+            "id": 3,
+            "name": "LLMs"
+        }
+    ],
+    "articles": [
+        {
+            "id": 101,
+            "topic_id": 1,
+            "title": "New Ai model relesed",
+            "source": "BBC"
+        },
+        {
+            "id": 102,
+            "topic_id": 2,
+            "title": "robots are taking over",
+            "source": "Fox news"
+        },
+        {
+            "id": 103,
+            "topic_id": 3,
+            "title": "how to implememt LLms",
+            "source": "ITV"
+        },
+        {
+            "id": 104,
+            "topic_id": 1,
+            "question": "AI",
+            "source": "itv",
+            "title": "robots"
+        }
+    ],
+    "questions": [
+        {
+            "id": 201,
+            "topic_id": 1,
+            "question": "What are the latest AI developments?"
+        },
+        {
+            "id": 202,
+            "topic_id": 2,
+            "question": "What is happening in robotics?"
+        },
+        {
+            "id": 203,
+            "topic_id": 1,
+            "question": "g"
+        },
+        {
+            "id": 204,
+            "topic_id": 1,
+            "question": "robots"
+        },
+        {
+            "id": 205,
+            "topic_id": 1,
+            "question": "robots"
+        },
+        {
+            "id": 206,
+            "topic_id": 1,
+            "question": "robots"
+        }
+    ]
+}
