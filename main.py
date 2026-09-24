@@ -1,27 +1,9 @@
 import json
 
-
-def article_search(topic_id, topic_name, articles):
-    found = False
-
-    for article in articles:
-        if article["topic_id"] == topic_id:
-            print("\nTopic found")
-            print("Topic:", topic_name)
-            print("Title:", article["title"])
-            print("Source:", article["source"])
-            found = True
-
-    if not found:
-        print("Article not found")
+import topic_utility
 
 
-def find_topic(topic_name, topics):
-    for topic in topics:
-        if topic["name"].lower() == topic_name.lower():
-            return topic
 
-    return None
 
 
 with open("catalog.json", "r") as file:
@@ -49,7 +31,7 @@ if q1.lower() == "y":
         "Topic: "
     )
 
-    topic = find_topic(topic_name, topics)
+    topic = topic_utility.find_topic(topic_name, topics)
 
     if topic is None:
         print("That topic does not exist.")
@@ -74,7 +56,7 @@ if q1.lower() == "y":
         with open("catalog.json", "w") as file:
             json.dump(catalog, file, indent=4)
 
-        article_search(topic["id"], topic["name"], articles)
+        topic_utility.article_search(topic["id"], topic["name"], articles)
 
 elif q1.lower() == "a":
 
@@ -86,7 +68,7 @@ elif q1.lower() == "a":
         "Topic: "
     )
 
-    topic = find_topic(topic_name, topics)
+    topic = topic_utility.find_topic(topic_name, topics)
 
     if topic is None:
         print("That topic does not exist.")
@@ -96,7 +78,7 @@ elif q1.lower() == "a":
         new_article = {
             "id": len(articles) + 101,
             "topic_id": topic["id"],
-            "question": topic["name"],
+            
             "source": input(
                 "What institution did you get this information from: "
             ),
