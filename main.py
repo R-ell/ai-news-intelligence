@@ -1,6 +1,8 @@
 import json
 
 import topic_utility
+import test_api
+
 
 
 
@@ -45,6 +47,13 @@ if q1.lower() == "y":
 
         print("You asked:", user_question)
 
+        api_articles=test_api.get_news(topic["name"])
+        print(len(api_articles))
+
+        for articles in api_articles[0:3]:
+            print(articles["title"])
+            print(articles["source"])
+
         new_question = {
             "id": len(questions) + 201,
             "topic_id": topic["id"],
@@ -56,7 +65,7 @@ if q1.lower() == "y":
         with open("catalog.json", "w") as file:
             json.dump(catalog, file, indent=4)
 
-        topic_utility.article_search(topic["id"], topic["name"], articles)
+        #topic_utility.article_search(topic["id"], topic["name"], articles)
 
 elif q1.lower() == "a":
 
@@ -93,7 +102,6 @@ elif q1.lower() == "a":
             json.dump(catalog, file, indent=4)
 
         print("Article added successfully.")
-
 
 
 
