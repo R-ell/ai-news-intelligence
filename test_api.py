@@ -2,6 +2,7 @@ import requests
 import json
 from dotenv import load_dotenv
 import os
+from models import Article
 load_dotenv()
 
 #q= "artificail intelligence"
@@ -29,13 +30,14 @@ def get_news(topic):
     article_list=data["articles"]
     for article in article_list:
 
-        article_format={
+        article_format=Article(
+            title=article["title"],
+            source=article["source"]["name"],
+            url=article["url"],
+            date_pub=article["publishedAt"]
 
-            "title":article["title"],
-            "source":article["source"]["name"],
-            "url":article["url"],
-            "date_pub":article["publishedAt"]
-        }
+
+        )
         #print(article_format["title"])
        # print(article_format["source"])
         #print(article_format["url"])

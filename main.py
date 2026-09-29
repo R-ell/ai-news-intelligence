@@ -2,11 +2,12 @@ import json
 
 import topic_utility
 import test_api
+import database
 
 
 
 
-
+database.setup_db()
 
 with open("catalog.json", "r") as file:
     catalog = json.load(file)
@@ -48,11 +49,14 @@ if q1.lower() == "y":
         print("You asked:", user_question)
 
         api_articles=test_api.get_news(topic["name"])
+        database.save_article(api_articles)
         print(len(api_articles))
 
         for articles in api_articles[0:3]:
-            print(articles["title"])
-            print(articles["source"])
+            article_title=articles.title
+            article_source=articles.source
+            print(article_title)
+            print(article_source)
 
         new_question = {
             "id": len(questions) + 201,
@@ -105,7 +109,7 @@ elif q1.lower() == "a":
 
 
 
-
+database.view_article()
 
 
 
