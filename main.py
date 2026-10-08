@@ -2,12 +2,14 @@ import json
 
 import topic_utility
 import test_api
-import database
+#import database
+import llm
+import db
 
 
 
 
-database.setup_db()
+#database.setup_db()
 
 with open("catalog.json", "r") as file:
     catalog = json.load(file)
@@ -16,6 +18,7 @@ with open("catalog.json", "r") as file:
 topics = catalog["topics"]
 articles = catalog["articles"]
 questions = catalog["questions"]
+
 
 
 q1 = input(
@@ -49,14 +52,16 @@ if q1.lower() == "y":
         print("You asked:", user_question)
 
         api_articles=test_api.get_news(topic["name"])
-        database.save_article(api_articles)
+        #database.save_article(api_articles)
         print(len(api_articles))
+        """
 
         for articles in api_articles[0:3]:
             article_title=articles.title
             article_source=articles.source
             print(article_title)
             print(article_source)
+        """
 
         new_question = {
             "id": len(questions) + 201,
@@ -68,6 +73,41 @@ if q1.lower() == "y":
 
         with open("catalog.json", "w") as file:
             json.dump(catalog, file, indent=4)
+
+        print(f"\nProcessing the top 3 articles for {topic['name']}...")
+
+        for article in api_articles[0:3]:
+            article_title = article.title
+            print("\nAsking AI to analyse:", article_title)
+            
+            ai_summary = llm.analyze_article(article_title)
+            print("AI summary:", ai_summary)
+            
+            db.save_data(
+                title=article_title, 
+                source=article.source, 
+                url=article.url, 
+                published_date=article.date_pub, 
+                ai_summary=ai_summary
+            )
+        """
+
+        sample_text=api_articles[0].title
+        print("\nAsking AI to analyse",sample_text)
+    
+        ai_summary=llm.analyze_article(sample_text)
+    
+        print("\nAI summary:")
+        print(ai_summary)
+        """
+    
+        db.save_data(
+           title=api_articles[0].title, 
+            source=api_articles[0].source, 
+            url=api_articles[0].url, 
+            published_date=api_articles[0].published_date, 
+            ai_summary=ai_summary
+        )
 
         #topic_utility.article_search(topic["id"], topic["name"], articles)
 
@@ -109,9 +149,18 @@ elif q1.lower() == "a":
 
 
 
-database.view_article()
+#database.view_article()
+    """
 
+    sample_text=api_articles[0].title
+    print("\nAsking AI to analyse",sample_text)
 
+    ai_summary=llm.analyze_article(sample_text)
+
+    print("\nAI summary:")
+    print(ai_summary)
+"""
+   
 
 
 
